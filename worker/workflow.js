@@ -42,6 +42,7 @@ const save = (req, res, next) => {
             usageManager.Rate(tenant, 'constainers', 1, criteria)
           ]).then((rules) => {
             if (rules && rules.length) { 
+              console.log(rules);
               let allRulesRateUpdated = rules.every((rule) => { return rule.IsSuccess; });
               if (allRulesRateUpdated) {
                 res.send(201, {"success": true, "message": "Workflow successfully saved."});
