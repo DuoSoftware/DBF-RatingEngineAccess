@@ -25,8 +25,8 @@ const server = restify.createServer({
   name: "RatingEngineAccess"
 });
 
-server.pre(cors.preflight)
-server.use(cors.actual)
+server.pre(cors.preflight);
+server.use(cors.actual);
 server.use(restify.plugins.queryParser({ mapParams: true }));
 server.use(restify.plugins.bodyParser({ mapParams: true }));
 
@@ -45,7 +45,8 @@ server.post(
 // DELETE http://localhost/DBF/API/v2/tenants/cookiemonster/workflows?criteria=tenant
 server.del(
   '/DBF/API/:version/tenants/:tenant/workflows',
-  authorization({resource: "sla", action: "delete"}),
+  jwt({secret: secret.Secret, getToken: getToken}),
+  authorization({resource: "user", action: "delete"}),
   workflow.remove
 );
 

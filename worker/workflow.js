@@ -30,7 +30,7 @@ const save = (req, res, next) => {
     // all rules executed correctly
     if (rules && rules.length) {
       // get usege rules status
-      let agreeWithUsageRules = rules.every((rule) => { return rule.success; });
+      let agreeWithUsageRules = rules.every((rule) => { return rule.IsSuccess; });
       // all usage rules passed
       if (agreeWithUsageRules) {
         // store workflow on object store
@@ -42,7 +42,7 @@ const save = (req, res, next) => {
             usageManager.Rate(tenant, 'constainers', 1, criteria)
           ]).then((rules) => {
             if (rules && rules.length) { 
-              let allRulesRateUpdated = rules.every((rule) => { return rule.success; });
+              let allRulesRateUpdated = rules.every((rule) => { return rule.IsSuccess; });
               if (allRulesRateUpdated) {
                 res.send(201, {"success": true, "message": "Workflow successfully saved."});
                 next();
@@ -98,7 +98,7 @@ const remove = (req, res, next) => {
       usageManager.Rate(tenant, 'constainers', (deletedWFCount * -1), criteria)
     ]).then((rules) => {
       if (rules && rules.length) { 
-        let allRulesRateUpdated = rules.every((rule) => { return rule.success; });
+        let allRulesRateUpdated = rules.every((rule) => { return rule.IsSuccess; });
         if (allRulesRateUpdated) {
           res.send({"success": true, "message": "Workflow successfully deleted."});
           next();
