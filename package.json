@@ -1,0 +1,20 @@
+{
+  "name": "dbf-rating-engine-access",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "config": "^1.30.0",
+    "dbf-usagemanager": "^1.0.5",
+    "dvp-common-lite": "^1.0.1",
+    "restify": "^7.2.1",
+    "restify-jwt": "^0.4.0"
+  }
+}
