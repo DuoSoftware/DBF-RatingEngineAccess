@@ -1,11 +1,13 @@
 const restify = require('restify'),
   config = require('config'),
   jwt = require('restify-jwt'),
+  corsMiddleware = require('restify-cors-middleware'),
   secret = require('dvp-common-lite/Authentication/Secret.js'),
   authorization = require('dvp-common-lite/Authentication/Authorization.js'),
   workflow = require('./worker/workflow');
 
-const port = (config.Host)? config.Host.port: 3000;
+const port = (config.Host)? config.Host.port: 3000,
+  cors = corsMiddleware({allowHeaders: ['authorization']});
 
 const getToken = (req) => {
   if (req.headers.authorization && req.headers.authorization.split(' ')[0].toLowerCase() === 'bearer') {
@@ -23,6 +25,8 @@ const server = restify.createServer({
   name: "RatingEngineAccess"
 });
 
+server.pre(cors.preflight)
+server.use(cors.actual)
 server.use(restify.plugins.queryParser({ mapParams: true }));
 server.use(restify.plugins.bodyParser({ mapParams: true }));
 
