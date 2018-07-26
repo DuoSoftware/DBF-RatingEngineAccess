@@ -1,5 +1,7 @@
 const restify = require('restify'),
   config = require('config'),
+  jwt = require('restify-jwt'),
+  secret = require('dvp-common-lite/Authentication/Secret.js'),
   authorization = require('dvp-common-lite/Authentication/Authorization.js'),
   workflow = require('./worker/workflow');
 
@@ -31,6 +33,7 @@ server.listen(port, () => {
 // POST http://localhost/DBF/API/v2/tenants/cookiemonster/workflows?criteria=tenant
 server.post(
   '/DBF/API/:version/tenants/:tenant/workflows',
+  jwt({secret: secret.Secret, getToken: getToken}),
   authorization({resource: "sla", action: "write"}),
   workflow.save
 );
