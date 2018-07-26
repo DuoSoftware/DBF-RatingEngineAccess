@@ -34,7 +34,7 @@ server.listen(port, () => {
 server.post(
   '/DBF/API/:version/tenants/:tenant/workflows',
   jwt({secret: secret.Secret, getToken: getToken}),
-  authorization({resource: "sla", action: "write"}),
+  authorization({resource: "user", action: "write"}),
   workflow.save
 );
 
