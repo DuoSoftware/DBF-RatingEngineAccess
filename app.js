@@ -22,7 +22,7 @@ const getToken = (req) => {
 }
 
 const server = restify.createServer({
-  name: "RatingEngineAccess"
+  name: "RatingEngineAccess" 
 });
 
 server.pre(cors.preflight);
