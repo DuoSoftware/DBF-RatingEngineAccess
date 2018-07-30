@@ -40,21 +40,6 @@ const save = (req, res, next) => {
         logger.debug("WorkflowSave: All usage rules executed and accepted.");
         // store workflow on object store
         objectStore.insertSingle(namespace, tenant, keyProperty, body.Data, (response) => {
-<<<<<<< Updated upstream
-          // handle objectstore response
-          // update usage rules
-          Promise.all([
-            usageManager.Rate(tenant, 'WorkFlows', 1, criteria),
-            usageManager.Rate(tenant, 'constainers', 1, criteria)
-          ]).then((rules) => {
-            if (rules && rules.length) { 
-              console.log(rules);
-              let allRulesRateUpdated = rules.every((rule) => { return rule.IsSuccess; });
-              if (allRulesRateUpdated) {
-                res.send(201, {"success": true, "message": "Workflow successfully saved."});
-                next();
-              }else {
-=======
         // workflow saved successfully
           if (response && response.IsSuccess) {
             logger.debug("WorkflowSave: Workflow (%s) stored successfully.", body.Data.ID);
@@ -77,7 +62,6 @@ const save = (req, res, next) => {
                 }
               } else {
                 logger.debug("WorkflowSave: Error occurred while updating usage rules.");
->>>>>>> Stashed changes
                 res.send({"success": false, "message": "An error occurred while updating usage rules."});
                 next();
               }
