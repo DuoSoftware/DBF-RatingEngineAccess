@@ -41,6 +41,7 @@ const save = (req, res, next) => {
         // store workflow on object store
         objectStore.insertSingle(namespace, tenant, keyProperty, body.Data, (response) => {
         // workflow saved successfully
+          response = (typeof response === "string")? JSON.parse(response): response;
           if (response && response.IsSuccess) {
             logger.debug("WorkflowSave: Workflow (%s) stored successfully.", body.Data.ID);
             // update usage rules
